@@ -6,6 +6,10 @@ public class Main {
 	    System.out.println("The start of a beautiful game.");
         System.out.println("Jännätesti ho,mgsma!");
 
+        for (int i = 0; i < 2; i++){
+            System.out.println("Bla " + i);
+        }
+
         Olio testi = new Olio(2,2);
         testi.Kerro();
     }
