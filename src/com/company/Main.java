@@ -12,5 +12,7 @@ public class Main {
 
         Olio testi = new Olio(2,2);
         testi.Kerro();
+
+        //Jotain omaa koodia jeejee katotaan mitä tapahtuu koska en updatennu äksdee
     }
 }
