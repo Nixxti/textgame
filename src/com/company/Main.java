@@ -7,7 +7,7 @@ public class Main {
         System.out.println("Jännätesti ho,mgsma!");
 
         for (int i = 0; i < 2; i++){
-            System.out.println("Bla " + i);
+            System.out.println("Ba " + i);
         }
 
         Olio testi = new Olio(2,2);
