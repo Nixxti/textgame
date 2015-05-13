@@ -8,7 +8,7 @@ public class Main {
 
         for (int i = 0; i < 2; i++){
             System.out.println("Ba " + i);
-        }
+        } // asd
 
         Olio testi = new Olio(2,2);
         testi.Kerro();
