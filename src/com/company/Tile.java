@@ -4,28 +4,28 @@ public class Tile {
     String tileType;
     char tileChar;
     String tileColor;
-
+    String spacing = " ";
     String defaultColor = "[0m";
     public Tile(String tType, char tChar) {
-        tileType = tType;
-        tileChar = tChar;
+        this.tileType = tType;
+        this.tileChar = tChar;
 
         switch(tType){
             case "Grass":
-                tileColor = "[32m";
+                this.tileColor = "[42m";
                 break;
 
             case "Rock":
-                tileColor = "[30;37m";
+                this.tileColor = "[30;37m";
                 break;
         }
     }
 
-    public String Info() {
-        return "This tile is of type: " + tileType + " and is represented by the char " + PrintTile();
+    public String info() {
+        return "This tile is of type: " + tileType + " and is represented by:  " + printTile();
     }
 
-    public String PrintTile() {
-        return (char)27 + tileColor + tileChar + (char)27 + defaultColor;
+    public String printTile() {
+        return (char)27 + tileColor + spacing + tileChar + spacing + (char)27 + defaultColor;
     }
 }
