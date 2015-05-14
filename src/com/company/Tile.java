@@ -21,11 +21,11 @@ public class Tile {
         }
     }
 
-    public String info() {
+    String info() {
         return "This tile is of type: " + tileType + " and is represented by:  " + printTile();
     }
 
-    public String printTile() {
+    String printTile() {
         return (char)27 + tileColor + spacing + tileChar + spacing + (char)27 + defaultColor;
     }
 }

@@ -8,5 +8,6 @@ public class Main {
         overworld.generateTileMap();
         overworld.generateEntityMap(objects);
         overworld.printTileMap();
+        System.out.println();
     }
 }
