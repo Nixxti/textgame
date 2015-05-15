@@ -6,17 +6,18 @@ public class Tile {
     String tileColor;
     String spacing = " ";
     String defaultColor = "[0m";
-    public Tile(String tType, char tChar) {
+    public Tile(String tType) {
         this.tileType = tType;
-        this.tileChar = tChar;
 
         switch(tType){
             case "Grass":
                 this.tileColor = "[42m";
+                this.tileChar = ' ';
                 break;
 
             case "Rock":
-                this.tileColor = "[30;37m";
+                this.tileColor = "[40;47m";
+                this.tileChar = ' ';
                 break;
         }
     }

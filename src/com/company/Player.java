@@ -5,4 +5,8 @@ public class Player extends Entity {
         this.pos = pos;
         this.entityChar = pChar;
     }
+
+    void think() {
+        System.out.println(printEntity() + " thinks: \"Wow, I want to die holy shit please kill me.\"");
+    }
 }
