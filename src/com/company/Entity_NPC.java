@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.Random;
-
 public class Entity_NPC extends Entity {
 
     String[] messages_collision = new String[]{
