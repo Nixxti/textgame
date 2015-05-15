@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Entity {
     //Miten kyseinen entity esitetään ruudulla
@@ -18,6 +19,8 @@ public class Entity {
     String[] dirE = {"e","east"};
     String[] dirS = {"s","south"};
     String[] dirW = {"w","west"};
+
+    Random random = new Random();
     public Entity(){}
 
     void move(String dir) {
@@ -25,11 +28,11 @@ public class Entity {
             pos.y -= movSpeed;
         }
 
-        if (Arrays.asList(dirE).contains((dir.toLowerCase())) && pos.x < posBounds.x-1){
+        if (Arrays.asList(dirE).contains((dir.toLowerCase())) && pos.x < map.mapWidth-1){
             pos.x += movSpeed;
         }
 
-        if (Arrays.asList(dirS).contains((dir.toLowerCase())) && pos.y < posBounds.y-1){
+        if (Arrays.asList(dirS).contains((dir.toLowerCase())) && pos.y < map.mapHeight-1){
             pos.y += movSpeed;
         }
 
@@ -50,10 +53,6 @@ public class Entity {
         this.bgColor = colorCode;
     }
 
-    void setBoundaries(Position posBounds) {
-        this.posBounds = posBounds;
-    }
-
     void updateMap(Map map){
         this.map = map;
     }
@@ -61,4 +60,13 @@ public class Entity {
     void think() {
         System.out.println(entityChar + " thinks: I want to die please just kill me now holy shit." );
     }
+
+    boolean isColliding(Entity e) {
+        if (this.returnPos().x == e.returnPos().x && this.returnPos().y == e.returnPos().y){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    void action(String a) {}
 }

@@ -1,7 +1,7 @@
 package com.company;
 
-public class Player extends Entity {
-    public Player(Position pos, char pChar) {
+public class Entity_Player extends Entity {
+    public Entity_Player(Position pos, char pChar) {
         this.pos = pos;
         this.entityChar = pChar;
     }
