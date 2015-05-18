@@ -22,11 +22,7 @@ public class Tile {
         }
     }
 
-    String info() {
-        return "This tile is of type: " + tileType + " and is represented by:  " + printTile();
-    }
+    //String info() {return "This tile is of type: " + tileType + " and is represented by:  " + printTile();}
 
-    String printTile() {
-        return (char)27 + tileColor + spacing + tileChar + spacing + (char)27 + defaultColor;
-    }
+    String printTile() {return (char)27 + tileColor + spacing + tileChar + spacing + (char)27 + defaultColor;}
 }

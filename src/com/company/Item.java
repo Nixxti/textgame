@@ -9,11 +9,7 @@ public class Item {
         this.value = value;
     }
 
-    int sell() {
-        return value;
-    }
+    int sell() {return value;}
 
-    void use() {
-        //Jotain
-    }
+    void use() {/*Jotain*/ }
 }

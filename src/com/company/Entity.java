@@ -42,21 +42,13 @@ public class Entity {
         }
     }
 
-    Position returnPos() {
-        return pos;
-    }
+    Position returnPos() {return pos;}
 
-    String printEntity() {
-        return (char)27 + bgColor + spacing + entityChar + spacing + (char)27 + defaultColor;
-    }
+    String printEntity() {return (char)27 + bgColor + spacing + entityChar + spacing + (char)27 + defaultColor;}
 
-    void setBgColor(String colorCode) {
-        this.bgColor = colorCode;
-    }
+    void setBgColor(String colorCode) {this.bgColor = colorCode;}
 
-    void updateMap(Map map){
-        this.map = map;
-    }
+    void updateMap(Map map){this.map = map;}
 
     void think(){}
 
@@ -68,12 +60,12 @@ public class Entity {
         }
     }
 
-    boolean action(String a) {
-        switch(a.toLowerCase()) {
+    int action(String a) {
+        switch(a.toLowerCase()) { // 0 = Ei jatku, 1 = jatkuu, 2 = uusi komento pyydetään
             case "q":
             case "quit":
                 Main.playing = false;
-                return true;
+                return 1;
 
             case "n":   //Tarkoituksella tehty jotta tää shitti hyväksyy monta eri arvoa.
             case "north":
@@ -84,29 +76,35 @@ public class Entity {
             case "w":
             case "west":
                 move(a);
-                return true;
+                return 1;
 
 
             case "i":
             case "inv":
             case "inventory":
                 inventory.printInventory();
-                return false;
+                return 0;
 
             case "control":
-                int c = Main.input.nextInt();
-                if (c < map.entities.length) {
-                    Main.c = c;
-                    System.out.println("You are now controlling " + printEntity());
-
-                    return true;
-                } else {
-                    System.out.println("Invalid input!");
-                    return false;
+                System.out.println("Type the ID of the entity you want to control ( 0 - "+ (map.entities.length-1) +")");
+                int c;
+                try{
+                    c = Main.input.nextInt();
+                    if (c < map.entities.length) {
+                        Main.c = c;
+                        System.out.println("You will be controlling controlling " + map.entities[c].printEntity() + " on the next map update");
+                        return 2;
+                    } else {
+                        System.out.println("Invalid input!");
+                        return 0;
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return 0;
                 }
             default:
                 System.out.println(printEntity() + ": Sorry, I can't do that.");
-                return false;
+                return 0;
         }
     }
 }

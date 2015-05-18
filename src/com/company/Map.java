@@ -6,7 +6,7 @@ public class Map {
     Plant[] plants;
     Tile[][] tileMap;
     String[][] stringMap;
-    String spacing = "";
+    //String spacing = "";
 
     public Map(int width, int height, Entity[] entities, Plant[] plants) {
         this.mapWidth = width;

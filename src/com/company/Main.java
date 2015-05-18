@@ -29,22 +29,26 @@ public class Main {
         overworld.generateTileMap();
         //overworld.generateStringMap();
         //overworld.printStringMap();
-        //Ei pysty vielä breakkaa looppia, ei jaksa.
+
         while(playing) {
             overworld.generateStringMap();
-            entities[0].think();
-            entities[1].think();
+            for (Entity e : entities) {e.think();}
             handleInput(entities[c]);
         }
         System.out.println("Game Terminated");
-
     }
 
     static void handleInput(Entity e) {//Looppaa inputtia.
+        System.out.println("Insert a command (North, East, South, West | Inventory | quit | [control])");
         while(true) {
-            System.out.println("Insert a command (North, East, South, West | quit)");
-            if (e.action(input.nextLine()) == true) { //Kun action funktio returnaa 'true' niin peli piirtää mapin uusiks
-                break;
+            switch (e.action(input.nextLine())) {
+                case 1:
+                    return;
+                case 2:
+                    System.out.println("Press enter to continue...");
+                    input.nextLine();
+                    input.nextLine();
+                    return;
             }
         }
     }

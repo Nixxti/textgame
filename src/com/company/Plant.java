@@ -14,27 +14,17 @@ public class Plant {
         this.name = name;
         this.bgColor = "[42m";
         this.value = value;
-        this.plantChar = name.substring(0).toCharArray()[0];
+        this.plantChar = name.toCharArray()[0];
 
     }
 
-    String info() {
-        return "This plant is of type: " + name + " and is represented by:  " + printPlant();
-    }
+    String info() {return "This plant is of type: " + name + " and is represented by:  " + printPlant();}
 
-    Position returnPos() {
-        return pos;
-    }
+    Position returnPos() {return pos;}
 
-    String printPlant() {
-        return (char)27 + bgColor + spacing + plantChar + spacing + (char)27 + defaultColor;
-    }
+    String printPlant() {return (char)27 + bgColor + spacing + plantChar + spacing + (char)27 + defaultColor;}
 
-    Item take() {
-        return new Item(name,value);
-    }
+    Item take() {return new Item(name,value);}
 
-    void setBgColor(String colorCode) {
-        this.bgColor = colorCode;
-    }
+    void setBgColor(String colorCode) {this.bgColor = colorCode;}
 }
