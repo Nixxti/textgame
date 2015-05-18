@@ -3,16 +3,18 @@ package com.company;
 public class Map {
     int mapWidth, mapHeight;
     Entity[] entities;
+    Plant[] plants;
     Tile[][] tileMap;
     String[][] stringMap;
     String spacing = "";
 
-    public Map(int width, int height, Entity[] entities) {
+    public Map(int width, int height, Entity[] entities, Plant[] plants) {
         this.mapWidth = width;
         this.mapHeight = height;
         this.tileMap = new Tile[height][width];
         this.stringMap = new String[height][width];
         this.entities = entities;
+        this.plants = plants;
     }
 
     void generateTileMap() {
@@ -30,10 +32,16 @@ public class Map {
             }
         }
 
+        for (Plant p : this.plants) {
+            p.setBgColor(tileMap[p.returnPos().y][p.returnPos().x].tileColor);
+            stringMap[p.returnPos().y][p.returnPos().x] = p.printPlant();
+        }
+
         for (Entity e : this.entities) {
             e.setBgColor(tileMap[e.returnPos().y][e.returnPos().x].tileColor);
             stringMap[e.returnPos().y][e.returnPos().x] = e.printEntity();
         }
+
         printStringMap();
     }
     /*

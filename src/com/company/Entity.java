@@ -7,11 +7,12 @@ public class Entity {
     //Miten kyseinen entity esitetään ruudulla
     char entityChar;
     String defaultColor = "[0m";
-    String fgColor = "[0m";
     String bgColor;
     String spacing = " ";
 
     Map map; //Annan entityille kopion mapista että ne 'näkee'
+    Inventory inventory; //Tasku homma
+
     Position pos;
     Position posBounds;
     int movSpeed = 1; //Parempi että tätä arvoa ei ikinä koroteta.
@@ -57,9 +58,7 @@ public class Entity {
         this.map = map;
     }
 
-    void think() {
-        System.out.println(entityChar + " thinks: I want to die please just kill me now holy shit." );
-    }
+    void think(){}
 
     boolean isColliding(Entity e) {
         if (this.returnPos().x == e.returnPos().x && this.returnPos().y == e.returnPos().y){
@@ -68,5 +67,46 @@ public class Entity {
             return false;
         }
     }
-    void action(String a) {}
+
+    boolean action(String a) {
+        switch(a.toLowerCase()) {
+            case "q":
+            case "quit":
+                Main.playing = false;
+                return true;
+
+            case "n":   //Tarkoituksella tehty jotta tää shitti hyväksyy monta eri arvoa.
+            case "north":
+            case "e":
+            case "east":
+            case "s":
+            case "south":
+            case "w":
+            case "west":
+                move(a);
+                return true;
+
+
+            case "i":
+            case "inv":
+            case "inventory":
+                inventory.printInventory();
+                return false;
+
+            case "control":
+                int c = Main.input.nextInt();
+                if (c < map.entities.length) {
+                    Main.c = c;
+                    System.out.println("You are now controlling " + printEntity());
+
+                    return true;
+                } else {
+                    System.out.println("Invalid input!");
+                    return false;
+                }
+            default:
+                System.out.println(printEntity() + ": Sorry, I can't do that.");
+                return false;
+        }
+    }
 }
