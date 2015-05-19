@@ -33,8 +33,10 @@ public class Map {
         }
 
         for (Plant p : this.plants) {
-            p.setBgColor(tileMap[p.returnPos().y][p.returnPos().x].tileColor);
-            stringMap[p.returnPos().y][p.returnPos().x] = p.printPlant();
+            if (p.enabled) {
+                p.setBgColor(tileMap[p.returnPos().y][p.returnPos().x].tileColor);
+                stringMap[p.returnPos().y][p.returnPos().x] = p.printPlant();
+            }
         }
 
         for (Entity e : this.entities) {
@@ -44,17 +46,7 @@ public class Map {
 
         printStringMap();
     }
-    /*
-    void placeEntitiesInMap(Entity[] entities) {
-        this.entities = entities;
-        for (int i = 0; i < entities.length; i++){
-            entities[i].setBgColor(tileMap[entities[i].returnPos().y][entities[i].returnPos().x].tileColor);
-            entities[i].setBoundaries(new Position(mapWidth,mapHeight));
-            stringMap[entities[i].returnPos().y][entities[i].returnPos().x] = entities[i].printEntity();
-        }
 
-    }
-*/
     void printStringMap() {
         for (int y = 0; y < mapHeight; y++){
             for (int x = 0; x < mapWidth; x++){
