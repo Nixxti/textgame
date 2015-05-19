@@ -13,7 +13,7 @@ public class Inventory {
     void addItem(Item i){
         for (Item item : inventory) {
             if (item.name.equals(i.name) && item.value == i.value){
-                System.out.println(String.format("Added %dx %s to your existing stack of %d!",i.amount,i.name,item.amount));
+                System.out.println(String.format("%5sAdded %dx %s to your existing stack of %d!"," ",i.amount,i.name,item.amount));
                 item.amount+=i.amount;
                 return;
             }
