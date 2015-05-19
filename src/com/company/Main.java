@@ -45,7 +45,7 @@ public class Main {
                     return;
                 case 2:
                     System.out.println("Press enter to continue...");
-                    input.nextLine();
+                    input.nextLine(); // 2 nextLine koska control komento bugaa, 2lazy2fix
                     input.nextLine();
                     return;
             }

@@ -23,22 +23,47 @@ public class Entity {
     Random random = new Random();
     public Entity(){}
 
-    void move(String dir) {
+    boolean isWalkable(int x, int y) {
+        if (!map.tileMap[x][y].canWalkOn) {
+            System.out.println("You can't walk on " + map.tileMap[x][y].printTile());
+            return false;
+        }else {
+            return true;
+        }
+    }
+    int move(String dir) {
         if (Arrays.asList(dirN).contains((dir.toLowerCase())) && pos.y > 0){
-            pos.y -= movSpeed;
+            if (isWalkable(this.pos.x,this.pos.y-movSpeed)) {
+                pos.y -= movSpeed;
+            } else {
+                return 0;
+            }
         }
 
         if (Arrays.asList(dirE).contains((dir.toLowerCase())) && pos.x < map.mapWidth-1){
-            pos.x += movSpeed;
+            if (isWalkable(this.pos.x+movSpeed,this.pos.y)) {
+                pos.x += movSpeed;
+            } else {
+                return 0;
+            }
         }
 
         if (Arrays.asList(dirS).contains((dir.toLowerCase())) && pos.y < map.mapHeight-1){
-            pos.y += movSpeed;
+            if (isWalkable(this.pos.x,this.pos.y+movSpeed)) {
+                pos.y += movSpeed;
+            }else {
+                return 0;
+            }
         }
 
         if (Arrays.asList(dirW).contains((dir.toLowerCase())) && pos.x > 0){
-            pos.x -= movSpeed;
+            if (isWalkable(this.pos.x-movSpeed,this.pos.y)) {
+                pos.x -= movSpeed;
+            }else {
+                return 0;
+            }
         }
+        return 1;
     }
 
     Position returnPos() {return pos;}
@@ -72,6 +97,7 @@ public class Entity {
                 if (inventory.itemsInInventory()+p.tAmount > inventory.size) {
                     System.out.println("Oh no! Inventory is full!");
                 } else {
+                    System.out.println(printEntity() + " harvests " + p.printPlant());
                     inventory.addItem(p.take());
                 }
                 plantsHere = true;
@@ -99,6 +125,7 @@ public class Entity {
         int c;
         try{
             c = Main.input.nextInt();
+            System.out.println("Got input!" + c);
             if (c < map.entities.length) {
                 Main.c = c;
                 System.out.println("You will be controlling controlling " + map.entities[c].printEntity() + " on the next map update");
@@ -128,8 +155,7 @@ public class Entity {
                 return 1;
 
             case "n":case "north":case "e":case "east":case "s":case "south":case "w":case "west":
-                move(a);
-                return 1;
+                return move(a);
 
             case "i":case "inv":case "inventory":
                 inventory.printInventory();
@@ -145,9 +171,11 @@ public class Entity {
             case "t":case "take":
                 take();
                 return 0;
+
             case "stomp":
                 stompPlant();
-                return 2;
+                return 0;
+
             default:
                 System.out.println(printEntity() + ": Sorry, I can't do that.");
                 return 0;

@@ -6,6 +6,7 @@ public class Tile {
     String tileColor;
     String spacing = " ";
     String defaultColor = "[0m";
+    boolean canWalkOn;
     public Tile(String tType) {
         this.tileType = tType;
 
@@ -13,11 +14,13 @@ public class Tile {
             case "Grass":
                 this.tileColor = "[42m";
                 this.tileChar = ' ';
+                this.canWalkOn = true;
                 break;
 
             case "Rock":
                 this.tileColor = "[40;47m";
                 this.tileChar = ' ';
+                this.canWalkOn = false;
                 break;
         }
     }

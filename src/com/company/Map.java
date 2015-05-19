@@ -20,7 +20,7 @@ public class Map {
     void generateTileMap() {
         for (int y = 0; y < mapHeight; y++){
             for (int x = 0; x < mapWidth; x++) {
-                    tileMap[y][x] = new Tile("Grass");
+                tileMap[y][x] = new Tile("Grass");
             }
         }
     }
