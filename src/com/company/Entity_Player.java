@@ -14,7 +14,7 @@ public class Entity_Player extends Entity {
 
     void think() {
         if (map.entities[Main.c] == this) {
-            System.out.println(printEntity() + " thinks: " + messages_casual[random.nextInt(messages_casual.length)]);
+            System.out.println(String.format("%s thinks: %s",printEntity(),messages_casual[random.nextInt(messages_casual.length)]));
         }
     }
 }

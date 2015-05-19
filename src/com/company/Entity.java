@@ -7,6 +7,7 @@ public class Entity {
     //Miten kyseinen entity esitetään ruudulla
     char entityChar;
     String defaultColor = "[0m";
+    String fgColor = "[33;";
     String bgColor;
     String spacing = " ";
 
@@ -25,7 +26,7 @@ public class Entity {
 
     boolean isWalkable(int x, int y) {
         if (!map.tileMap[y][x].canWalkOn) {
-            System.out.println("You can't walk on " + map.tileMap[y][x].printTile());
+            System.out.println(String.format("%s can't walk on %s!",this.printEntity(),map.tileMap[y][x].printTile()));
             return false;
         }else {
             return true;
@@ -68,25 +69,37 @@ public class Entity {
 
     Position returnPos() {return pos;}
 
-    String printEntity() {return (char)27 + bgColor + spacing + entityChar + spacing + (char)27 + defaultColor;}
+    String printEntity() {return (char)27 + (fgColor+bgColor) + spacing + entityChar + spacing + (char)27 + defaultColor;}
 
-    void setBgColor(String colorCode) {this.bgColor = colorCode;}
+    void setBgColor(String colorCode) {this.bgColor = colorCode.substring(1);}
 
     void updateMap(Map map){this.map = map;}
 
     void think(){}
 
+    String description() {
+        return String.format("%-3s looks like a NPC.\n %-3s There are no special commands to use on this person.",this.printEntity()," ");
+    }
+
     void examine() {
-        System.out.println(printEntity() + " looks around...");
+        System.out.println(String.format("%s looks around...\n",printEntity()));
         boolean plantsHere = false;
+        boolean entityHere = false;
         for (Plant p : map.plants) {
             if (p.isColliding(this) && p.enabled){
                 System.out.println(p.info());
                 plantsHere = true;
             }
         }
-        if (!plantsHere) {
-            System.out.println(printEntity() + " didn't find anything here");
+
+        for (Entity e : map.entities) {
+            if (e.isColliding(this) && this != e){
+                System.out.println(e.description());
+                entityHere = true;
+            }
+        }
+        if (!plantsHere && !entityHere) {
+            System.out.println(String.format("%s didn't find anything here!",printEntity()));
         }
     }
 
@@ -95,16 +108,16 @@ public class Entity {
         for (Plant p : map.plants) {
             if (p.isColliding(this) && p.enabled){
                 if (inventory.itemsInInventory()+p.tAmount > inventory.size) {
-                    System.out.println("Oh no! Inventory is full!");
+                    System.out.println(String.format("Oh no! %s's Inventory is full!",printEntity()));
                 } else {
-                    System.out.println(printEntity() + " harvests " + p.printPlant());
+                    System.out.println(String.format("%s harvests %s!",printEntity(),p.printPlant()));
                     inventory.addItem(p.take());
                 }
                 plantsHere = true;
             }
         }
         if (!plantsHere) {
-            System.out.println(printEntity() + " there is nothing here to take!");
+            System.out.println(String.format("%s attempts to take air but fails miserably.",printEntity()));
         }
     }
     void stompPlant() {
@@ -112,40 +125,35 @@ public class Entity {
         for (Plant p : map.plants) {
             if (p.isColliding(this) && p.enabled){
                 p.resetPlant();
-                System.out.println(printEntity() + " brutally stomps the plant, completely disintegrating it.");
+                System.out.println(String.format("%s brutally stomps the %s-plant, completely disintegrating it.",printEntity(),p.printPlant()));
                 plantsHere = true;
             }
         }
         if (!plantsHere) {
-            System.out.println(printEntity() + " there is nothing to stomp here!");
+            System.out.println(String.format("%s stomps the empty ground, good job.",printEntity()));
         }
     }
     int control() {
-        System.out.println("Type the ID of the entity you want to control ( 0 - "+ (map.entities.length-1) +")");
+        System.out.println(String.format("Type the ID of the entity you want to control ( 0 - %d )",map.entities.length-1));
         int c;
         try{
             c = Main.input.nextInt();
-            System.out.println("Got input!" + c);
             if (c < map.entities.length) {
                 Main.c = c;
-                System.out.println("You will be controlling controlling " + map.entities[c].printEntity() + " on the next map update");
+                System.out.println(String.format("You will be controlling controlling %s on the next map update",map.entities[c].printEntity()));
                 return 2;
             } else {
                 System.out.println("Invalid input!");
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println("Invalid input! (" + e.getMessage() + ")");
+            System.out.println(String.format("Invalid input! ( %s )",e.getMessage()));
             return 0;
         }
     }
 
     boolean isColliding(Entity e) {
-        if (this.returnPos().x == e.returnPos().x && this.returnPos().y == e.returnPos().y){
-            return true;
-        } else {
-            return false;
-        }
+        return this.returnPos().x == e.returnPos().x && this.returnPos().y == e.returnPos().y;
     }
 
     int action(String a) {
@@ -177,7 +185,7 @@ public class Entity {
                 return 0;
 
             default:
-                System.out.println(printEntity() + ": Sorry, I can't do that.");
+                System.out.println(String.format("%s: Sorry, I can't do that.",printEntity()));
                 return 0;
         }
     }

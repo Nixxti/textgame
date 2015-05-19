@@ -2,41 +2,44 @@ package com.company;
 
 public class Plant {
     boolean enabled = true;
-    int recharge; //Kun t?? on 100 tai jotain niin kukka spawnaa uusiks.
-    int chargeSpeed = 5;
+    int recharge = 0; //Kun t?? on 100 tai jotain niin kukka spawnaa uusiks.
+    int chargeSpeed = 1;
 
     String name;
     int value;
-    int tAmount = 1; //Kuinka paljon juttuja t?st? kasvista saa
+    int tAmount = 1; //Kuinka paljon juttuja tästä kasvista saa
     Position pos;
 
     char plantChar;
+    String fgColor;
     String bgColor;
     String spacing = " ";
     String defaultColor = "[0m";
     public Plant(Position pos, String name, int value) {
         this.pos = pos;
         this.name = name;
-        this.bgColor = "[42m";
+        this.fgColor = "[31;";
         this.value = value;
         this.plantChar = name.toCharArray()[0];
     }
 
     String info() {return
-            "This plant is of type: " + name + " and is represented by:  " + printPlant()+"\n"+
-            "You can use the follow commands on this plant: take\n";
+            String.format("%-5sThis plant is named %s and it looks like %s.\n%-5sYou can use the follow commands on this plant: Take, Stomp\n"," ",this.name,this.printPlant()," ");
     }
 
     void plantLogic() {
         if (!this.enabled) {
             recharge += chargeSpeed;
+            if (recharge >= 100) {
+                this.enabled = true;
+                recharge = 0;
+            }
         }
-        //Jotain muutakin vois t?nne lis?t?
     }
 
     Position returnPos() {return pos;}
 
-    String printPlant() {return (char)27 + bgColor + spacing + plantChar + spacing + (char)27 + defaultColor;}
+    String printPlant() {return (char)27 + (fgColor+bgColor) + spacing + plantChar + spacing + (char)27 + defaultColor;}
 
     void resetPlant() {
         this.recharge = 0;
@@ -49,12 +52,8 @@ public class Plant {
     }
 
     boolean isColliding(Entity e) {
-        if (this.returnPos().x == e.returnPos().x && this.returnPos().y == e.returnPos().y){
-            return true;
-        } else {
-            return false;
-        }
+        return this.returnPos().x == e.returnPos().x && this.returnPos().y == e.returnPos().y;
     }
 
-    void setBgColor(String colorCode) {this.bgColor = colorCode;}
+    void setBgColor(String colorCode) {this.bgColor = colorCode.substring(1);}
 }

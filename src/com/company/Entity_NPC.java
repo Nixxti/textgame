@@ -14,7 +14,7 @@ public class Entity_NPC extends Entity {
     void think() {
         for (Entity e : map.entities) {
             if (e != this && this.isColliding(e)) {
-                System.out.format(printEntity() + " thinks: " + messages_collision[random.nextInt(messages_collision.length)], e.printEntity());
+                System.out.println(String.format("%s thinks: " + messages_collision[random.nextInt(messages_collision.length)],this.printEntity(), e.printEntity()));
             }
         }
     }

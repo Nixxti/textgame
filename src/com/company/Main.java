@@ -6,21 +6,32 @@ public class Main {
     public static int c = 0;
     public static void main(String[] args) {
         Entity[] entities = new Entity[]{
-                new Entity_Player(new Position(9,9),'P'),
-                new Entity_NPC(new Position(8,8),'N')
+                new Entity_Player(new Position(16,2),'P'),
+                new Entity_NPC(new Position(11,18),'N')
         };
         Plant[] plants = new Plant[] {
-                new Plant(new Position(9,0),"Cannibis",100),
-                new Plant(new Position(9,1),"Cannibis",50),
-                new Plant(new Position(9,2),"Cannibis",45),
-                new Plant(new Position(9,3),"Cannibis",100),
-                new Plant(new Position(9,4),"Cannibis",100),
-                new Plant(new Position(8,0),"Cannibis",100),
-                new Plant(new Position(8,1),"Cannibis",100),
-                new Plant(new Position(8,2),"Cannibis",100),
-                new Plant(new Position(8,3),"Cannibis",57),
-                new Plant(new Position(8,4),"Cannibis",99),
-                new Plant(new Position(8,4),"Cannibis",100)
+                new Plant(new Position(9,0),"Amikki",100),
+                new Plant(new Position(9,1),"Taponlehti",50),
+                new Plant(new Position(9,2),"Karvamaksaruoho",45),
+                new Plant(new Position(9,3),"Lapinhilpi",100),
+                new Plant(new Position(9,4),"Lapinkaura",100),
+                new Plant(new Position(8,0),"Lapinleinikki",100),
+                new Plant(new Position(8,1),"Lettorikko",50),
+                new Plant(new Position(8,2),"Suovalkku",45),
+                new Plant(new Position(8,3),"Pahtakeltto",100),
+                new Plant(new Position(8,4),"Tikankontti",100),
+
+                new Plant(new Position(2,19),"Tundrasara",100),
+                new Plant(new Position(3,19),"Valkolehdokki",50),
+                new Plant(new Position(4,19),"Suomukka",45),
+                new Plant(new Position(5,19),"Taarna",100),
+                new Plant(new Position(6,19),"Vuorijalava",100),
+
+                new Plant(new Position(0,8),"Tundrasara",100),
+                new Plant(new Position(1,8),"Valkolehdokki",50),
+                new Plant(new Position(2,8),"Suomukka",45),
+                new Plant(new Position(0,11),"Taarna",100),
+                new Plant(new Position(1,11),"Vuorijalava",100),
         };
         Map overworld = new Map(20,20,entities,plants);
         for (Entity e : entities) {
