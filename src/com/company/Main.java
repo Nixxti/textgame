@@ -22,11 +22,11 @@ public class Main {
                 new Plant(new Position(8,4),"Cannibis",99),
                 new Plant(new Position(8,4),"Cannibis",100)
         };
-        Map overworld = new Map(10,10,entities,plants);
-        overworld.generateTileMap();
+        Map overworld = new Map(20,20,entities,plants);
         for (Entity e : entities) {
             e.updateMap(overworld);
         }
+        overworld.generateTileMap();
 
         while(playing) {
             overworld.generateStringMap();

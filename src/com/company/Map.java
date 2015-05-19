@@ -6,6 +6,28 @@ public class Map {
     Plant[] plants;
     Tile[][] tileMap;
     String[][] stringMap;
+    String[][] experimentMap = new String[][]{
+            {"R","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","R"},
+            {"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","R","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G"},
+            {"G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G"},
+            {"R","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","G","R"}
+    };
     //String spacing = "";
 
     public Map(int width, int height, Entity[] entities, Plant[] plants) {
@@ -16,7 +38,7 @@ public class Map {
         this.entities = entities;
         this.plants = plants;
     }
-
+    /*
     void generateTileMap() {
         for (int y = 0; y < mapHeight; y++){
             for (int x = 0; x < mapWidth; x++) {
@@ -24,7 +46,14 @@ public class Map {
             }
         }
     }
-
+    */
+    void generateTileMap() {
+        for (int y = 0; y < mapHeight; y++){
+            for (int x = 0; x < mapWidth; x++) {
+                tileMap[y][x] = new Tile(experimentMap[y][x]);
+            }
+        }
+    }
     void generateStringMap() {
         for (int y = 0; y < mapHeight; y++){
             for (int x = 0; x < mapWidth; x++) {

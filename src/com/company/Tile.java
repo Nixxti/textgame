@@ -11,13 +11,13 @@ public class Tile {
         this.tileType = tType;
 
         switch(tType){
-            case "Grass":
+            case "G":
                 this.tileColor = "[42m";
                 this.tileChar = ' ';
                 this.canWalkOn = true;
                 break;
 
-            case "Rock":
+            case "R":
                 this.tileColor = "[40;47m";
                 this.tileChar = ' ';
                 this.canWalkOn = false;

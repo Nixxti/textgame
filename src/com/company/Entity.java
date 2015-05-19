@@ -24,8 +24,8 @@ public class Entity {
     public Entity(){}
 
     boolean isWalkable(int x, int y) {
-        if (!map.tileMap[x][y].canWalkOn) {
-            System.out.println("You can't walk on " + map.tileMap[x][y].printTile());
+        if (!map.tileMap[y][x].canWalkOn) {
+            System.out.println("You can't walk on " + map.tileMap[y][x].printTile());
             return false;
         }else {
             return true;
