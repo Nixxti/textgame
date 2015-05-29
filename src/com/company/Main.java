@@ -67,6 +67,8 @@ public class Main {
             handleInput(entities[c]);
         }
         System.out.println("Game Terminated");
+        System.out.println("Press enter to close the game...");
+        input.nextLine();
     }
 
     private static void handleInput(Entity e) {//Looppaa inputtia ja jänniä input trickkejä
