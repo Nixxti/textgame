@@ -2,14 +2,14 @@ package com.company;
 import java.util.Scanner;
 public class Main {
     public static boolean playing = true;
-    public static Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
     public static int c = 0;
 
     public static void main(String[] args) {
         Entity[] entities = new Entity[]{
                 new Entity_Player(new Position(16,2),'P'),
                 new Entity_NPC(new Position(11,18),'N'),
-                new Entity_Merchant(new Position(15,2),'M')
+                new Entity_Merchant(new Position(16,1),'M')
         };
         Plant[] plants = new Plant[] {
                 new Plant(new Position(9,0),"Amikki",100),
@@ -39,9 +39,29 @@ public class Main {
         for (Entity e : entities) {
             e.updateMap(overworld);
         }
+        //Pelin loppumiseen vaikuttavat muuttujat
+        int timerDefault = 240;
+        int rentTimer = 120;
+        int rentCost = 1000;
+        int roundsSurvived = 0;
 
         while(playing) {
+            if (rentTimer <= 0) {
+                if(entities[0].inventory.money < rentCost) {
+                    System.out.println("YOU DO NOT HAVE ENOUGH MONEY TO PAY RENT, THANK YOU FOR PLAYING.");
+                    System.out.println(String.format("You survive %d round",roundsSurvived));
+                    break;
+                } else {
+                    roundsSurvived+=1;
+                    System.out.println(String.format("Congratulations! You survived round %d, good luck on round %d",roundsSurvived,roundsSurvived+1));
+                    entities[0].inventory.money -= rentCost;
+                    rentTimer = timerDefault;
+                    rentCost = rentCost*2;
+                }
+            }
+            rentTimer-=1;
             overworld.generateStringMap();
+            System.out.println(String.format("Your rent is due, you have %d days to get %d$\n",rentTimer,rentCost));
             for (Entity e : entities) {e.think();}
             for (Plant p : plants){p.plantLogic();}
             handleInput(entities[c]);
@@ -50,8 +70,9 @@ public class Main {
     }
 
     private static void handleInput(Entity e) {//Looppaa inputtia ja jänniä input trickkejä
-        System.out.println("Insert a command (North, East, South, West | Examine, Take | Inventory | Quit | [control])");
+        System.out.println("Insert a command (North, East, South, West | Examine, Take | Sell | Inventory | Quit | [control])");
         while(true) {
+            System.out.print("\nCommand: ");
             switch (e.action(input.nextLine())) {
                 case 1:
                     return;

@@ -9,7 +9,7 @@ public class Entity_Player extends Entity {
     public Entity_Player(Position pos, char pChar) {
         this.pos = pos;
         this.entityChar = pChar;
-        this.inventory = new Inventory(5);
+        this.inventory = new Inventory(10);
         this.canTrade = true;
     }
 

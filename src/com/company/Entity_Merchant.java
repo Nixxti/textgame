@@ -24,6 +24,6 @@ public class Entity_Merchant extends  Entity {
     }
 
     String description() {
-        return String.format("%-3s is the town merchant.\n %-3s You can use the following commands on this person: Sell, Buy, List.",this.printEntity()," ");
+        return String.format("%-3s is the town merchant.\n %-3s You can use the following commands on this person: Sell.",this.printEntity()," ");
     }
 }

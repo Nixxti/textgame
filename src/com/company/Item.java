@@ -11,11 +11,9 @@ public class Item {
         this.amount = amount;
     }
 
-    int sell(Entity seller) {
-        System.out.println(String.format("%s sold %dx %s for %d$ each",seller.printEntity(),amount,name,value));
+    int sell(Entity seller, Entity buyer) {
+        System.out.println(String.format("%s sold %dx %s for %d$ each to %s",seller.printEntity(),amount,name,value,buyer.printEntity()));
         this.enabled = false;
         return value;
     }
-
-    void use() {/*Jotain*/}
 }

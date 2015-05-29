@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -83,8 +84,10 @@ public class Entity {
     }
     int sell() {
         boolean traderHere = false;
+        Entity trader = new Entity();
         for(Entity e : map.entities) {
-            if (e.canTrade && e.isColliding(this)) {
+            if (e.canTrade && e.isColliding(this) && this != e) {
+                trader = e;
                 traderHere = true;
             }
         }
@@ -92,14 +95,23 @@ public class Entity {
             if (inventory.itemsInInventory() > 0) {
                 inventory.printInventory(true);
                 System.out.println(String.format("Type the ID of the item you want to sell. Example: 1 to sell %s", inventory.getItem(0).name));
-                int itemIndex = Main.input.nextInt();
-                inventory.money += inventory.getItem(itemIndex).amount*inventory.getItem(itemIndex).sell(this);
-                return 0;
+                System.out.print("ID: ");
+                try {
+                    Scanner input = new Scanner(System.in); //Uus scanner koska jos tää heittää mismatch exceptionin niin tää menee täysin lukkoon.
+                    int itemIndex = input.nextInt() - 1;
+                    if (itemIndex < 0 || itemIndex > inventory.size) {
+                        System.out.println("Bad input!");
+                    } else {
+                        inventory.money += inventory.getItem(itemIndex).amount * inventory.getItem(itemIndex).sell(this, trader);
+                    }
+                }catch (Exception e) {
+                    System.out.println(String.format("Invalid input! ( %s )",e.getMessage()));
+                }
             } else {
-                System.out.println("You don't have anything to trade!");
+                System.out.println(String.format("%s doesn't have anything to trade!",printEntity()));
             }
         } else {
-            System.out.println("There is no-one here to sell items to!");
+            System.out.println(String.format("%s: There is no-one here to sell items to!",printEntity()));
         }
         return 0;
     }
@@ -160,9 +172,10 @@ public class Entity {
 
     private int control() {
         System.out.println(String.format("Type the ID of the entity you want to control ( 0 - %d )",map.entities.length-1));
-        int c;
         try{
-            c = Main.input.nextInt();
+            Scanner input = new Scanner(System.in); //Uus scanner koska jos tää heittää mismatch exceptionin niin tää menee täysin lukkoon.
+            System.out.print("ID: ");
+            int c = input.nextInt();
             if (c < map.entities.length) {
                 Main.c = c;
                 System.out.println(String.format("You will be controlling controlling %s on the next map update",map.entities[c].printEntity()));
@@ -182,9 +195,8 @@ public class Entity {
     }
 
     int action(String a) {
-        int ignore = 0; //Poistaa pikku bugin
         switch(a.toLowerCase()) { // 0 = Ei jatku, 1 = jatkuu, 2 = "Press any key to continue"-tyyppinen juttu
-            case "q":case "quit":
+            case "quit":
                 Main.playing = false;
                 return 1;
 
@@ -196,8 +208,7 @@ public class Entity {
                 return 0;
 
             case "sell":
-                ignore = sell();
-                return ignore;
+                return sell();
 
             case "control":
                 return control();
@@ -215,9 +226,7 @@ public class Entity {
                 return 0;
 
             default:
-                if (ignore > 0) {
                     System.out.println(String.format("%s: Sorry, I can't do that.", printEntity()));
-                }
                 return 0;
         }
     }

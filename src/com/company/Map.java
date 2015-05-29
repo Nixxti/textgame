@@ -76,6 +76,5 @@ public class Map {
             }
             System.out.print("\n");
         }
-        System.out.print("\n");
     }
 }
