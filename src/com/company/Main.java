@@ -7,9 +7,9 @@ public class Main {
 
     public static void main(String[] args) {
         Entity[] entities = new Entity[]{
-                new Entity_Player(new Position(16,2),'P'),
+                new Entity_Player(new Position(16,16),'P'),
                 new Entity_NPC(new Position(11,18),'N'),
-                new Entity_Merchant(new Position(16,1),'M')
+                new Entity_Merchant(new Position(1,1),'M')
         };
         Plant[] plants = new Plant[] {
                 new Plant(new Position(9,0),"Amikki",100),
