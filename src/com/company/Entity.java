@@ -16,6 +16,7 @@ public class Entity {
 
     Position pos;
     int movSpeed = 1; //Parempi että tätä arvoa ei ikinä koroteta.
+    boolean canTrade = false;
     String[] dirN = {"n","north"};
     String[] dirE = {"e","east"};
     String[] dirS = {"s","south"};
@@ -80,8 +81,30 @@ public class Entity {
     String description() {
         return String.format("%-3s looks like a NPC.\n %-3s There are no special commands to use on this person.",this.printEntity()," ");
     }
+    int sell() {
+        boolean traderHere = false;
+        for(Entity e : map.entities) {
+            if (e.canTrade && e.isColliding(this)) {
+                traderHere = true;
+            }
+        }
+        if(traderHere) {
+            if (inventory.itemsInInventory() > 0) {
+                inventory.printInventory(true);
+                System.out.println(String.format("Type the ID of the item you want to sell. Example: 1 to sell %s", inventory.getItem(0).name));
+                int itemIndex = Main.input.nextInt();
+                inventory.money += inventory.getItem(itemIndex).amount*inventory.getItem(itemIndex).sell(this);
+                return 0;
+            } else {
+                System.out.println("You don't have anything to trade!");
+            }
+        } else {
+            System.out.println("There is no-one here to sell items to!");
+        }
+        return 0;
+    }
 
-    void examine() {
+    private void examine() {
         System.out.println(String.format("%s looks around...\n",printEntity()));
         boolean plantsHere = false;
         boolean entityHere = false;
@@ -103,7 +126,7 @@ public class Entity {
         }
     }
 
-    void take() {
+    private void take() {
         boolean plantsHere = false;
         for (Plant p : map.plants) {
             if (p.isColliding(this) && p.enabled){
@@ -120,7 +143,8 @@ public class Entity {
             System.out.println(String.format("%s attempts to take air but fails miserably.",printEntity()));
         }
     }
-    void stompPlant() {
+
+    private void stompPlant() {
         boolean plantsHere = false;
         for (Plant p : map.plants) {
             if (p.isColliding(this) && p.enabled){
@@ -133,7 +157,8 @@ public class Entity {
             System.out.println(String.format("%s stomps the empty ground, good job.",printEntity()));
         }
     }
-    int control() {
+
+    private int control() {
         System.out.println(String.format("Type the ID of the entity you want to control ( 0 - %d )",map.entities.length-1));
         int c;
         try{
@@ -157,6 +182,7 @@ public class Entity {
     }
 
     int action(String a) {
+        int ignore = 0; //Poistaa pikku bugin
         switch(a.toLowerCase()) { // 0 = Ei jatku, 1 = jatkuu, 2 = "Press any key to continue"-tyyppinen juttu
             case "q":case "quit":
                 Main.playing = false;
@@ -166,8 +192,12 @@ public class Entity {
                 return move(a);
 
             case "i":case "inv":case "inventory":
-                inventory.printInventory();
+                inventory.printInventory(false);
                 return 0;
+
+            case "sell":
+                ignore = sell();
+                return ignore;
 
             case "control":
                 return control();
@@ -185,7 +215,9 @@ public class Entity {
                 return 0;
 
             default:
-                System.out.println(String.format("%s: Sorry, I can't do that.",printEntity()));
+                if (ignore > 0) {
+                    System.out.println(String.format("%s: Sorry, I can't do that.", printEntity()));
+                }
                 return 0;
         }
     }

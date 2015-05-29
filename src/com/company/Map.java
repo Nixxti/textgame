@@ -37,9 +37,11 @@ public class Map {
         this.stringMap = new String[height][width];
         this.entities = entities;
         this.plants = plants;
+
+        generateTileMap();
     }
 
-    void generateTileMap() {// Luo mapin ton ison teksti arrayn mukaan (experimentMap), alkaa vasen-ylä kulmasta ja menee oikealle.
+    private void generateTileMap() {// Luo mapin ton ison teksti arrayn mukaan (experimentMap), alkaa vasen-ylä kulmasta ja menee oikealle.
         for (int y = 0; y < mapHeight; y++){
             for (int x = 0; x < mapWidth; x++) {
                 tileMap[y][x] = new Tile(experimentMap[y][x]);
@@ -67,7 +69,7 @@ public class Map {
         printStringMap();
     }
 
-    void printStringMap() {
+    private void printStringMap() {
         for (int y = 0; y < mapHeight; y++){
             for (int x = 0; x < mapWidth; x++){
                 System.out.print(stringMap[y][x]);
