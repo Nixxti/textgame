@@ -102,7 +102,13 @@ public class Entity {
                     if (itemIndex < 0 || itemIndex > inventory.size) {
                         System.out.println("Bad input!");
                     } else {
-                        inventory.money += inventory.getItem(itemIndex).amount * inventory.getItem(itemIndex).sell(this, trader);
+                        int index = inventory.check(itemIndex);
+
+                        if (index>=0) {
+                            inventory.money += inventory.getItem(index).amount * inventory.getItem(index).sell(this, trader);
+                        } else {
+                            System.out.println(String.format("Invalid input! ( %d )",index));
+                        }
                     }
                 }catch (Exception e) {
                     System.out.println(String.format("Invalid input! ( %s )",e.getMessage()));

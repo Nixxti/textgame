@@ -6,7 +6,7 @@ public class Map {
     Plant[] plants;
     Tile[][] tileMap;
     String[][] stringMap;
-    String[][] experimentMap = new String[][]{// G = Grass, R = Rock, W = Floor, F = Water, B = Bridge
+    String[][] gameMap = new String[][]{// G = Grass, R = Rock, W = Floor, F = Water, B = Bridge
             {"R","R","R","R","R","R","R","F","G","G","G","G","G","G","G","G","G","G","G","R"},
             {"R","W","W","W","R","W","R","F","G","G","G","G","G","G","G","G","G","G","G","G"},
             {"R","W","W","W","W","W","R","F","G","G","G","G","G","G","G","G","G","G","G","G"},
@@ -28,7 +28,6 @@ public class Map {
             {"G","G","G","G","G","G","G","G","G","R","W","W","W","W","G","G","G","G","G","R"},
             {"R","G","G","G","G","G","G","G","G","R","R","R","R","R","R","R","R","R","R","R"}
     };
-    //String spacing = "";
 
     public Map(int width, int height, Entity[] entities, Plant[] plants) {
         this.mapWidth = width;
@@ -41,10 +40,10 @@ public class Map {
         generateTileMap();
     }
 
-    private void generateTileMap() {// Luo mapin ton ison teksti arrayn mukaan (experimentMap), alkaa vasen-ylä kulmasta ja menee oikealle.
+    private void generateTileMap() {// Luo tilemapin ton ison teksti arrayn mukaan (gameMap), alkaa vasen-ylä kulmasta ja menee oikealle.
         for (int y = 0; y < mapHeight; y++){
             for (int x = 0; x < mapWidth; x++) {
-                tileMap[y][x] = new Tile(experimentMap[y][x]);
+                tileMap[y][x] = new Tile(gameMap[y][x]);
             }
         }
     }

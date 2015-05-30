@@ -12,7 +12,7 @@ public class Inventory {
 
     void addItem(Item i){
         for (Item item : inventory) {
-            if (item.name.equals(i.name) && item.value == i.value){
+            if (item.enabled && item.name.equals(i.name) && item.value == i.value){
                 System.out.println(String.format("%5sAdded %dx %s to your existing stack of %d!"," ",i.amount,i.name,item.amount));
                 item.amount+=i.amount;
                 return;
@@ -24,15 +24,30 @@ public class Inventory {
 
     Item getItem(int index) {
         int iterator = 0;
+        Item t = new Item("",0,0); //Tarvitaan vain friikki tilanteissa, pakko returnata jotain.
         for (Item i : inventory) {
             if (i.enabled) {
                 if (iterator == index) {
                     return i;
                 }
+                t = i;
                 iterator++;
             }
         }
-        return new Item("Fuck",1,1);
+        return t;
+    }
+
+    int check(int index) { //Tarkistaa onko indexi validi ennen myynti?
+        int iterator = 0;
+        for (Item i : inventory) {
+            if (i.enabled) {
+                if(iterator == index) {
+                    return iterator;
+                }
+                iterator++;
+            }
+        }
+        return -1;
     }
 
     void printInventory(boolean num)  {

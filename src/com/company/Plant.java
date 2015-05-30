@@ -3,7 +3,7 @@ package com.company;
 public class Plant {
     boolean enabled = true;
     int recharge = 0; //Kun t?? on 100 tai jotain niin kukka spawnaa uusiks.
-    int chargeSpeed = 1;
+    int chargeSpeed = 5;
 
     String name;
     int value;
